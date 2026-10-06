@@ -1,0 +1,346 @@
+lang-version: 1
+messages:
+  permission-denied: '&7你没有权限'
+  teleport-player-only: '&7坐标传送只能由玩家执行'
+  teleport-click: '&7请点击搜索结果中的坐标进行传送'
+  stop-idle: '&7当前没有扫描任务'
+  stop-requested: '&7已请求停止；正在收尾并保留已有结果'
+  status-idle: '&7当前没有扫描任务使用 /itemsearch results 查看上次结果'
+  status-active: '&7{progress}，耗时 {seconds} 秒'
+  results-syntax: '&7语法：/itemsearch results [正整数页码]'
+  scan-busy: '&7已有扫描任务可用 /itemsearch status 或 /itemsearch stop'
+  extra-regions-invalid: '&7extra-region-directories 中每条必须有 world 和 path'
+  search-start: '&7开始扫描：&f{target}&7；模式 {mode}{details}'
+  same-details: （完整）
+  match-details: （{match}）
+  search-scope: '&7读取所有配置世界的已保存 .mca，可用 /itemsearch stop 停止'
+  console-keyword: '&7控制台必须指定关键词，例如 /itemsearch id SWORD/WLZR'
+  template-required: '&7请在主手持有搜索模板物品，或直接输入关键词'
+  template-no-name: '&7手中物品没有自定义名称，请直接输入名称关键词'
+  template-no-lore: '&7手中物品没有有效 Lore，请直接输入 Lore 关键词'
+  template-no-mmo-id: '&7手中物品缺少 MMOItems TYPE/ID，请输入 ID 或 TYPE/ID'
+  keyword-empty: '&7关键词去除颜色代码后为空'
+  mmo-id-syntax: '&7身份语法：TYPE/ID，例如 SWORD/WLZR'
+  no-region-directories: '&7未发现任何 Region 目录，请检查 worlds 配置'
+  scan-stopped: 扫描已停止
+  scan-limited: 已达到结果上限，扫描提前结束
+  scan-complete: 扫描完成
+  scan-summary: '&7{outcome}：找到 &f{containers}&7 个容器，共 &f{items}&7 件（{stacks} 个匹配物品堆）'
+  scan-statistics: '&7Region {regions}，区块 {chunks}，检查物品 {items}；耗时 {seconds} 秒'
+  scan-incomplete: '&7跳过/读取错误 {errors}，嵌套深度限制 {depth}，未生成战利品容器 {loot}；这些部分可能缺少结果'
+  report-saved: '&7完整已找到结果报告：{path}'
+  report-failed: '&7报告保存失败：{reason}；聊天结果仍可翻页查看'
+  search-failed: '&7搜索结束：{reason}'
+  no-results: '&7还没有完成的搜索结果'
+  page-range: '&7页码范围：1-{pages}'
+  no-matches: '&7没有找到匹配物品'
+  inventory-player-only: '&7玩家库存 GUI 只能在游戏中打开'
+  uuid-required: '&7请输入完整玩家 UUID，或点击结果中的编辑按钮'
+  prefix: ''
+  reload-success: '&7配置及语言文件已重载，扫描设置用于下一次查询'
+  reload-failed: '&7语言文件重载失败：{reason}；保留上一次有效语言配置'
+  discovering: 正在发现 Region 目录
+  invalid-page-number: '&7页码必须是正整数'
+help:
+  main:
+  - '&6&lItemsearch &7物品查询 &8--- &b&l指令帮助 &8---'
+  - '&7'
+  - '&b/itemsearch &fsame &7- 精确查询手中物品'
+  - '&b/itemsearch &fname &c[exact|fuzzy] [关键词] &7- 查询物品名称'
+  - '&b/itemsearch &fid &c[exact|fuzzy] [TYPE&f/&cID] &7- 查询MMOITEMS物品'
+  - '&b/itemsearch &flore &c[any|all] [exact|fuzzy] [关键词] &7- 查询Lore物品'
+  - '&b/itemsearch &fmaterial &c[exact|fuzzy] [原版物品ID] &7- 查询原版物品'
+  - '&b/itemsearch &fstop &7- 结束查询'
+  - '&b/itemsearch &fstatus &7- 查询当前扫描任务'
+  - '&b/itemsearch &fresults &c[页码] &7- 查询上一个扫描任务'
+  - '&b/itemsearch &freload；&7- 重载配置'
+  - '&7'
+  - '&7保留字作为关键词时加 --，例如 /itemsearch name -- exact'
+  - '&7不写[]里的参数,为查询你手中的物品'
+  - '&7玩家查询：&b/itemsearch &fplayer &c<same|name|lore|id|material>'
+report:
+  region:
+    header: |
+      RegionItemSearch 磁盘快照搜索
+      目标：{target}
+      模式：{mode}/{match}/{lore}
+    summary: |
+      找到容器：{containers}，物品堆：{stacks}，件数：{items}
+      停止：{stopped}，达到上限：{limited}，读取错误：{errors}，深度跳过：{depth}，未生成战利品：{loot}
+    warning: |
+      警告：{reason}
+    entry: |
+      #{index} 世界：{world}，容器：{container}，坐标：{x},{y},{z}，物品：{item}，数量：{count}
+command:
+  missing-mode: 请指定 same、name、lore、id 或 material
+  unknown-mode: 未知查询模式：{mode}
+  same-syntax: same 使用手中物品，语法：/itemsearch same
+  duplicate-match: exact/fuzzy 只能选择一种
+  duplicate-lore-match: any/all 只能选择一种
+reference:
+  stale: 这条聊天结果已过期，请使用 /itemsearch results 查看当前结果
+  empty-results: 当前结果中没有匹配项
+  index-bounds: 结果编号范围：1-{maximum}
+  empty-pages: 当前没有可查看的结果页
+  page-bounds: 页码范围：1-{maximum}
+world:
+  extra-region-unavailable: 额外 Region 目录不存在或不可读：{world} -> {directory}
+scan:
+  invalid-limits: Invalid scanner limits
+  region-unavailable: '{world}: Region 目录不存在或不可读: {directory}'
+  world-progress: 正在扫描 {world} (已检查 {chunks} 区块)
+  region-enumeration-failed: '{world}: 无法枚举 Region 目录: {reason}'
+  chunk-failed: '{file} 区块 {x},{z}: {reason}'
+  chunk-index-failed: '{file} 区块索引 {index}: {reason}'
+  region-read-failed: '{world}/{file}: {reason}'
+  invalid-block-entity-list: '{world}: 无效的 Block Entity 列表'
+  invalid-block-entity: '{world}: 无效的 Block Entity'
+  invalid-container-items: '{world}: {container} 的 Items 不是列表'
+  missing-container-coordinates: '{world}: {container} 缺少容器坐标'
+  invalid-item-entry: '{world} {x},{y},{z}: 无效物品条目'
+  invalid-item-slot: '{world} {x},{y},{z}: 物品缺少合法槽位'
+  invalid-item-id: '{world}: 物品缺少合法 id'
+  invalid-nested-entry: '{world}: 无效的嵌套容器条目'
+  invalid-nested-slot: '{world}: 嵌套容器缺少槽位或 item'
+  invalid-container-component: 无效的 minecraft:container 组件
+  invalid-legacy-container-items: 无效的 tag.BlockEntityTag.Items
+  worker-failed: 'Region 工作线程失败: {reason}'
+  progress: 正在扫描 {world} ({regions} Region，{chunks} 区块，{containers} 容器，{items} 物品堆，匹配
+    {stacks} 堆 / {units} 件)
+player-scan:
+  invalid-limits: Invalid player scan limits
+  started: 正在扫描玩家背包与末影箱
+  online-source: 在线快照
+  file-failed: '{world}/{file}: {reason}'
+  not-directory: 玩家数据路径不是目录
+  directory-failed: '{world}: 无法读取玩家数据目录: {reason}'
+  invalid-file-size: 玩家数据文件超过大小限制或不是普通文件
+  snapshot-changed: 读取期间玩家数据发生变化，已跳过该快照
+  invalid-cache-size: usercache.json 超过 16 MiB 限制或不是普通文件
+  invalid-cache-root: usercache.json 根节点不是数组
+  cache-failed: '无法读取玩家名称缓存: {reason}'
+  invalid-storage-list: '{storage} 不是物品列表'
+  invalid-storage-slot: '{player}: {storage} 条目缺少合法槽位'
+  invalid-item-id: '{player}: 物品缺少合法 id'
+  nested-depth-limit: '{player}: 嵌套容器达到深度限制，已跳过其内容'
+  invalid-nested-slot: '{player}: 嵌套容器缺少合法槽位或 item'
+  invalid-container-component: '{player}: 无效的 minecraft:container 组件'
+  invalid-legacy-container-items: '{player}: 无效的 tag.BlockEntityTag.Items'
+  progress: 已扫描 {players} 位玩家、{files} 个档案，找到 {stacks} 个匹配物品堆
+  read-size-limit: 文件读取超过大小限制
+editor:
+  message: '&7{reason}'
+  storage:
+    inventory: 背包
+    ender-chest: 末影箱
+  title: '&8{player} · {storage}'
+  filler-name: '&f '
+  help-name: '&f移出 / 放入'
+  help-lore:
+  - '&7上方：目标玩家{storage}；下方：你的背包'
+  - '&7左键移动，右键拆分；Shift 点击快速转移'
+  - '&7{guide}'
+  - '&7放回鼠标上的物品，再点击保存'
+  - '&7取消或关闭窗口，双方库存均保持原状'
+  inventory-guide: 第 4 排：快捷栏；第 5 排：靴子、护腿、胸甲、头盔、副手
+  ender-guide: 可直接在两侧放入或移出物品
+  save-name: '&f保存{storage}'
+  save-lore:
+  - '&7保存两侧物品转移，立即生效'
+  saving-name: '&f正在保存…'
+  saving-lore:
+  - '&7请等待保存完成；关闭窗口将取消尚未提交的保存'
+  cancel-name: '&f取消'
+  cancel-lore:
+  - '&7放弃暂存转移，双方库存均保持原状'
+  commit-cancelled: '&7编辑已取消或管理员背包已变化，请重新打开'
+  previous-saving: '&7正在保存上一次修改，请稍候'
+  target-locked: '&7该玩家已有管理员正在编辑，请稍后再试'
+  cursor-before-open: '&7请先将鼠标上的物品放回背包，再打开编辑窗口'
+  own-inventory: '&7自己的背包可直接在游戏背包中移动物品此窗口用于与其他玩家交换物品'
+  loading: '&7正在读取玩家库存…'
+  load-failed: '&7库存读取失败，请稍后重试'
+  target-changed: '&7玩家在线状态或库存已变化，请重新打开编辑窗口'
+  cursor-after-load: '&7请先放回鼠标上的物品，再重新打开编辑窗口'
+  open-failed: '&7物品转移窗口打开失败，未更改库存；请检查服务器日志'
+  opened: '&7可直接移出或放入物品，完成后点击“保存{storage}”'
+  cancelled: '&7已取消，双方库存均未修改'
+  bundle-left-only: '&7收纳袋请用左键移动；袋内物品请在普通背包中整理'
+  cursor-before-save: '&7请先放回鼠标上的物品，再保存'
+  admin-changed: '&7你的实际背包在编辑期间发生变化，本次转移已取消，请重新打开'
+  invalid-staged-inventory: '&7暂存背包无效，请重新打开'
+  item-count-changed: '&7暂存物品数量不一致，本次转移已取消，请重新打开'
+  save-failed: '&7保存未完成，请稍后重试'
+  saved: '&7物品转移已保存'
+  save-cancelled: '&7保存已取消，双方库存均未修改，请重新打开'
+  save-failed-retry: '&7{reason} 双方库存均未修改，可重试或取消'
+  closed: '&7已关闭窗口，双方库存均未修改'
+  target-quit: '&7目标玩家已离线，本次转移已取消'
+  target-died: '&7目标玩家已死亡，本次转移已取消'
+  target-joined: '&7目标玩家已上线，本次离线转移已取消'
+  no-permission: '&7你需要 itemsearch.admin 和 itemsearch.edit 权限才能编辑库存'
+access:
+  folia-death-unsupported: '&7当前 Folia 缺少安全的死亡取消接口，无法保存跨区域库存编辑。'
+  rollback-recovery: '&7跨区域保存未能安全回滚，请管理员检查 &frecovery-journal &7恢复记录。'
+  no-permission: '&7你没有玩家库存编辑权限'
+  login-pending: '&7玩家正在上线，请稍后重新打开'
+  world-missing: '&7无法定位服务器主世界的玩家存档'
+  data-version-mismatch: 玩家存档版本不同，请先让玩家在当前服务器登录并退出，再编辑离线库存
+  load-failed: '&7无法打开离线库存：{reason}'
+  load-cancelled: '&7编辑已取消或权限已变化'
+  target-online: '&7玩家已上线或正在上线，请重新打开实时库存'
+  invalid-item: 槽位 {slot} 的物品无法完整解析
+  decode-failed: '&7无法解析离线物品：{reason}'
+  invalid-size: '&7库存槽位数量无效'
+  target-relogged: '&7玩家已退出或重新登录，请重新打开库存'
+  slot-conflict: '&7玩家已修改待编辑的槽位，保存已取消，请重新打开库存'
+  commit-cancelled: '&7编辑会话或管理员背包已变化，保存已取消'
+  saved-online: '&7已保存 {count} 个槽位的修改'
+  invalid-snapshot: '&7编辑快照无效，请重新打开'
+  save-target-online: '&7玩家已上线或正在上线，保存已取消'
+  no-changes: '&7没有需要保存的修改'
+  serialize-failed: '&7无法序列化修改的物品：{reason}'
+  save-pending: '&7玩家正在上线或已有保存任务，请稍后重试'
+  plugin-closed: 插件已关闭，保存取消
+  prepare-cancelled: 保存准备已取消
+  save-failed: '&7离线库存保存失败：{reason}'
+  submit-failed: '&7无法提交保存任务，请稍后重试'
+  commit-state-changed: '&7玩家状态、编辑会话或管理员背包已变化，保存已取消'
+  prepare-unavailable: 保存准备不可用
+  saved-offline: '&7已保存离线库存（{count} 个槽位），原存档已备份'
+  invalid-storage-list: 库存不是物品列表
+  invalid-item-entry: 库存包含无效物品条目
+  invalid-slot: 库存包含非法或重复槽位 {slot}
+  login-saving: '&7管理员正在保存你的库存，请稍后重新连接'
+style:
+  neutral-colors: false
+  default-color: '#aaaaaa'
+chat:
+  multiple-items-suffix: ' 等'
+  header: '&7搜索结果 第 {page}&8/{pages}&7 页'
+  page-current-value: '&f{value}'
+  page-total-value: '&7{value}'
+  index: '&7#{index} '
+  world: '&7{value}'
+  container: '&7{value}'
+  item-name: '&f{value}'
+  item-count: '&f x{count}'
+  container-count: '&f ×{count}'
+  coordinates: '&f{value}'
+  coordinates-unavailable: '&8{value}'
+  container-line: '{index}{world} {container} {coordinates}&8 | {name}{amount}'
+  teleport-hint: '&7点击传送到容器上方'
+  teleport-unavailable-hint: '&7无法点击传送：世界不可用、归档目录或控制台'
+  container-hover: |-
+    {hint}
+    &7世界：{world}
+    &f容器坐标：{position}
+  player-item-line: '{index}{name}{amount}'
+  player-identity: '&f{value}'
+  player-copy-hover: '&7点击复制 UUID'
+  player-copy-name-hover: |-
+    &7点击复制 UUID
+    &f{uuid}
+  player-online: '&a[在线] '
+  player-offline: '&8[离线] '
+  player-identity-line: '{status}{identity}&8 | {inventory} {ender}'
+  player-inventory-button: '&b[背包]'
+  player-ender-button: '&d[末影箱]'
+  player-inventory-hover: '&7点击打开并编辑玩家背包'
+  player-ender-hover: '&7点击打开并编辑玩家末影箱'
+  player-inventory-label: '&7背包'
+  player-ender-label: '&7末影箱'
+  player-storage-line: '{storage}&8 | &7来源：{world}'
+  player-storage-hover: |-
+    &7外层槽位：{slot}{equipment}
+    {path}
+  player-equipment: '&7（{name}）'
+  equipment:
+    boots: 靴子
+    leggings: 护腿
+    chestplate: 胸甲
+    helmet: 头盔
+    offhand: 副手
+  path-prefix: '&7路径：'
+  path-separator: '&8 → '
+  path-step: '&7{value}'
+  page-previous: '&7[上一页]'
+  page-next: '&7[下一页]'
+  page-first: '&7[首页]'
+  page-last: '&7[末页]'
+  page-number: '&7[{page}]'
+  page-current: '&f[{page}]'
+  page-disabled: '&8{label}'
+  page-ellipsis: '&8 … '
+  page-current-hover: '&7当前页'
+  page-hover: '&7查看第 {page} 页'
+teleport:
+  world-unavailable: '&7该结果对应的世界未加载，或来自归档/不同维度目录，无法直接传送'
+  outside-border: '&7目标坐标超出世界边界，无法传送'
+  pending: '&7正在准备上一次传送，请稍候'
+  preparing: '&7正在异步读取目标区块，准备传送到容器附近…'
+  stale: '&7权限或搜索结果已变化，请重新打开结果后传送'
+  chunk-unavailable: '&7目标区块无法读取，或世界已经卸载，未传送'
+  no-landing: '&7容器附近没有可站立的空间，未传送'
+  success: '&7已传送到 &f{world}&7 的容器附近（&f{x}, {y}, {z}&7）'
+  incomplete: '&7传送未完成，可能被其他插件取消'
+  failed: '&7无法发起传送：{error}'
+  read-failed: '&7无法读取目标区块：{error}'
+player:
+  help:
+  - '&7玩家查询：&f/itemsearch player <same|name|lore|id|material> &7[选项] [关键词]'
+  - '&f/itemsearch player results [页码] | status | stop&7；搜索背包、装备、副手和末影箱'
+  - '&f/itemsearch player inventory <UUID> | ender <UUID>&7；打开编辑 GUI，保存后生效'
+  inventory-syntax: '&7语法：&f/itemsearch player {command} <完整 UUID>'
+  results-syntax: '&7语法：&f/itemsearch player results [页码]'
+  no-active: '&7当前没有玩家查询任务'
+  stop-requested: '&7已请求停止玩家查询，保留已经找到的结果'
+  status-idle: '&7当前没有玩家查询任务使用 &f/itemsearch player results &7查看结果'
+  status: '&7{progress}，耗时 &f{seconds}&7 秒'
+  already-running: '&7已有玩家查询任务，请使用 &f/itemsearch player status &7或 &fstop&7'
+  invalid-source: '&7extra-player-data-directories 每条需要 world 和 path'
+  started: '&7开始玩家查询：&f{target}&7（{mode}/{match}）'
+  snapshot-info: '&7在线库存按批次捕获；离线库存直接读取 playerdata/*.dat，不加载离线玩家'
+  capture-preparing: '&7正在捕获在线玩家库存'
+  capture-failed: '&7无法捕获在线库存：{error}'
+  capture-progress: '&7已捕获 &f{captured}/{total}&7 名在线玩家'
+  progress: '&7玩家查询：{progress}'
+  outcome-stopped: '&7玩家查询已停止'
+  outcome-limited: '&7玩家查询达到结果上限'
+  outcome-complete: '&7玩家查询完成'
+  summary: '{outcome}&7：&f{stacks} 堆 / {items} 件'
+  statistics: '&7在线 &f{online}&7，离线 &f{offline}&7，检查 &f{checked}&7 个物品堆，读取错误 &f{errors}&7；耗时
+    &f{seconds}&7 秒'
+  report-saved: '&7玩家结果报告：&f{path}'
+  report-failed: '&7报告保存失败：{error}'
+  search-failed: '&7玩家查询失败：{error}'
+  decode-stopped: 库存解析已停止
+  decode-warning: '{player} 槽位 {slot}：{error}'
+  no-results: '&7还没有玩家查询结果'
+  page-range: '&7页码范围：&f1-{pages}'
+  results-header: '&7玩家库存 · {header}'
+  no-matches: '&7没有找到匹配的玩家库存物品'
+  error: '&7{message}'
+  generic-error: 查询失败
+  report-header: |-
+    RegionItemSearch 玩家库存查询
+    目标：{target}
+    模式：{mode}/{match}/{lore-match}
+  report-summary: |-
+    物品堆：{stacks}，件数：{items}，在线：{online}，离线：{offline}
+    停止：{cancelled}，达到上限：{truncated}，读取错误：{errors}
+  report-warning: 警告：{warning}
+  report-online: 在线快照
+  report-offline: 离线磁盘
+  report-inventory: INVENTORY
+  report-ender: ENDER_CHEST
+  report-hit: |-
+    #{index} {name} ({material}) x{count}
+    玩家：{player-name} / {uuid}，数据世界：{world}
+    存储：{storage}，槽位：{slot}
+    路径：{path}
+  invalid-page-number: '&7页码必须是正整数'
+
+compat:
+  uuid-copy-fallback: '&7点击将 UUID 放入输入框，然后复制'
+

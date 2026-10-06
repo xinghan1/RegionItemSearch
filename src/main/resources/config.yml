@@ -1,0 +1,40 @@
+# 容器扫描只读取磁盘快照，不加载、不生成、不修改区块；主动点击传送会加载目标区块。
+# 在线世界未保存的容器变更不会出现在搜索中。扫描前可手动 /save-all flush。
+config-version: 3
+scan:
+  # 全服同时只有一个容器扫描任务；玩家查询有独立任务。
+  # 0 无人工等待；设为正数时，每个读取线程逐区块等待，降低扫描负载。
+  delay-per-chunk-ms: 0
+  # 按 Region 文件并行读取/解析。范围 1–64；默认 2，可设 16、24。后台线程共享 CPU 和磁盘，并非独占 CPU 核心。
+  # 线程越多查询越快
+  reader-threads: 2
+  max-results: 1000
+  max-chunk-bytes: 16777216
+  max-nbt-depth: 128
+  max-container-depth: 16
+  progress-interval-seconds: 10
+  page-size: 5
+  # 原始 NBT 键名或 namespaced PDC 键末尾字段，递归忽略。
+  ignored-keys:
+    - unique_uuid
+    - created_time
+    - owner_uuid
+
+player-search:
+  # 背包、装备、副手、末影箱及其嵌套潜影盒；无每文件限速等待。
+  max-results: 1000
+  max-player-bytes: 16777216
+  # 分批在主线程捕获在线物品的 NBT，解析和磁盘读取均在工作线程。
+  online-players-per-tick: 2
+
+worlds:
+  # 自动捕获 Bukkit 当前注册的全部世界及各自维度目录。
+  scan-registered: true
+  excluded: []
+  # 需要扫描未注册的世界时，填写明确的 region 目录（不加载世界）。
+  # 同一个物理目录只扫描一次。相对路径以服务器目录为基准。
+  extra-region-directories: []
+  extra-player-data-directories: []
+  # 示例：
+  # - world: archived_world
+  #   path: archived_world/region

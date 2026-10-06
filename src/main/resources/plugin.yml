@@ -1,0 +1,20 @@
+name: RegionItemSearch
+version: '${project.version}'
+main: com.xinghan.itemsearch.RegionItemSearchPlugin
+api-version: '1.13'
+folia-supported: true
+description: Searches containers and player inventories by item metadata or material, with UUID copy and inventory editing.
+author: xinghan
+commands:
+  itemsearch:
+    description: 离线搜索所有世界容器内的物品
+    permission: itemsearch.admin
+    usage: /itemsearch <same|name|lore|id|material|player|stop|status|results|reload>
+permissions:
+  itemsearch.admin:
+    description: 管理员离线容器物品搜索
+    default: op
+  itemsearch.edit:
+    description: 打开并保存在线或离线玩家背包和末影箱的编辑
+    default: op
+

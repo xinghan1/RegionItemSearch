@@ -1,0 +1,5 @@
+name: RegionItemSearchProbe
+version: '1.0'
+main: com.xinghan.itemsearch.probe.RuntimeProbe
+api-version: '1.21.11'
+depend: [RegionItemSearch]
